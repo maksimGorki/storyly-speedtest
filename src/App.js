@@ -15,10 +15,10 @@ function App() {
     'https://api.storyly.io/latencytest/presignedurl';
   const statsEndpoint = 'https://api.storyly.io/latencytest/stats';
 
-  const handleUpload = async (option, region) => {
+  const handleUpload = async (option, region, accelerated = false) => {
     setPercentage(0);
     const { file } = option;
-    const files = { files: [file?.name], bucket_region: region };
+    const files = { files: [file?.name], bucket_region: region, accelerated };
     setFileLoading(true);
     const res = await axios.post(presignedUrlEndpoint, files);
     const fileData = {
@@ -110,7 +110,7 @@ function App() {
         <div className="buttons-container">
           <Upload
             disabled={fileLoading}
-            customRequest={(option) => handleUpload(option, 'eu-west-1')}
+            customRequest={(option) => handleUpload(option, 'eu-west-1', false)}
           >
             <Button
               className={`action-button ${fileLoading && 'disabled'}`}
@@ -121,13 +121,26 @@ function App() {
           </Upload>
           <Upload
             disabled={fileLoading}
-            customRequest={(option) => handleUpload(option, 'ap-southeast-3')}
+            customRequest={(option) =>
+              handleUpload(option, 'ap-southeast-3', false)
+            }
           >
             <Button
               className={`action-button ${fileLoading && 'disabled'}`}
               icon={<UploadOutlined style={{ color: '#7a4bff' }} />}
             >
               Upload to Indonesia
+            </Button>
+          </Upload>
+          <Upload
+            disabled={fileLoading}
+            customRequest={(option) => handleUpload(option, 'eu-west-1', true)}
+          >
+            <Button
+              className={`action-button ${fileLoading && 'disabled'}`}
+              icon={<UploadOutlined style={{ color: '#7a4bff' }} />}
+            >
+              Upload to Edge
             </Button>
           </Upload>
         </div>
