@@ -1,38 +1,90 @@
-.App {
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.app-wrapper {
+  height: 100vh;
+  width: 100%;
+  background: gainsboro;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background: url('../public/expired-background.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.App-link {
-  color: #61dafb;
+.content-container {
+  margin: 50px auto;
+  background: white;
+  border: 1px solid gray;
+  border-radius: 10px;
+  padding: 12px 40px;
+  box-shadow: 4px 8px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.buttons-container {
+  margin: 20px 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.action-button {
+  padding: 8px;
+  border: 1px solid gainsboro;
+  border-radius: 6px;
+  margin-right: 10px;
+  transition: all 0.5 ease-in-out;
+  white-space: nowrap;
+}
+
+.action-button:hover {
+  cursor: pointer;
+  border-color: #7a4bff;
+  box-shadow: 1px 1px 2px rgba(36, 36, 80, 0.3);
+}
+
+.disabled {
+  opacity: 0.5;
+}
+
+.disabled:hover {
+  cursor: not-allowed;
+  border-color: gainsboro;
+  box-shadow: none;
+}
+
+svg {
+  margin-right: 4px;
+}
+
+.upload-stats-container {
+  margin: 10px, 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.ant-upload-list {
+  display: none;
+}
+
+.ant-progress {
+  width: 100%;
+}
+
+.ant-progress-bg {
+  width: 100%;
+  border-radius: 20px;
 }
