@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import { Upload, Button, Spin, Progress } from 'antd';
-import { UploadOutlined, DownloadOutlined } from '@ant-design/icons';
+import { UploadOutlined } from '@ant-design/icons';
 import 'antd/es/spin/style/css';
 import axios from 'axios';
 
@@ -54,54 +54,47 @@ function App() {
     axios.post(statsEndpoint, payload);
   };
 
-  const handleDownload = (url, region) => {
-    const downloadFile = (data, filename, filetype = 'video/mp4') => {
-      const blob = new Blob([data], { type: filetype });
-      const tempElem = document.createElement('a');
-      tempElem.download = filename;
-      tempElem.href = window.URL.createObjectURL(blob);
-      tempElem.style.display = 'none';
-      document.body.appendChild(tempElem);
-      tempElem.click();
-      tempElem.remove();
-      window.URL.revokeObjectURL(blob);
-    };
-    setPercentage(0);
-    setFileLoading(true);
-    // const downloadElement = document.createElement('a');
-    // downloadElement.download = url.substr(url.lastIndexOf('/') + 1);
-    // downloadElement.href = url;
-    // downloadElement.setAttribute('download', true);
-    // document.body.appendChild(downloadElement);
-    // downloadElement.click();
-    // document.body.removeChild(downloadElement);
-    const startTime = new Date().getTime();
-    axios({
-      url,
-      onDownloadProgress(progressEvent) {
-        progress = Math.round(
-          (progressEvent.loaded / progressEvent.total) * 100
-        );
-        setPercentage(progress);
-      },
-    }).then((response) => {
-      const endTime = new Date().getTime();
-      const payload = {
-        bucket_region: region,
-        operation: 'download',
-        start: startTime,
-        end: endTime,
-        duration: endTime - startTime,
-        file_size: parseInt(response.headers['content-length'], 10),
-        file_name: url.substr(url.lastIndexOf('/') + 1),
-        file_path: url,
-      };
-      setFileLoading(false);
-      downloadFile(response.data, url.substr(url.lastIndexOf('/') + 1));
-      setNetworkStats(payload);
-      axios.post(statsEndpoint, payload);
-    });
-  };
+  // const handleDownload = (url, region) => {
+  //   const downloadFile = (data, filename, filetype = 'video/mp4') => {
+  //     const blob = new Blob([data], { type: filetype });
+  //     const tempElem = document.createElement('a');
+  //     tempElem.download = filename;
+  //     tempElem.href = window.URL.createObjectURL(blob);
+  //     tempElem.style.display = 'none';
+  //     document.body.appendChild(tempElem);
+  //     tempElem.click();
+  //     tempElem.remove();
+  //     window.URL.revokeObjectURL(blob);
+  //   };
+  //   setPercentage(0);
+  //   setFileLoading(true);
+  //   const startTime = new Date().getTime();
+  //   axios({
+  //     url,
+  //     onDownloadProgress(progressEvent) {
+  //       progress = Math.round(
+  //         (progressEvent.loaded / progressEvent.total) * 100
+  //       );
+  //       setPercentage(progress);
+  //     },
+  //   }).then((response) => {
+  //     const endTime = new Date().getTime();
+  //     const payload = {
+  //       bucket_region: region,
+  //       operation: 'download',
+  //       start: startTime,
+  //       end: endTime,
+  //       duration: endTime - startTime,
+  //       file_size: parseInt(response.headers['content-length'], 10),
+  //       file_name: url.substr(url.lastIndexOf('/') + 1),
+  //       file_path: url,
+  //     };
+  //     setFileLoading(false);
+  //     downloadFile(response.data, url.substr(url.lastIndexOf('/') + 1));
+  //     setNetworkStats(payload);
+  //     axios.post(statsEndpoint, payload);
+  //   });
+  // };
 
   return (
     <div className="app-wrapper">
@@ -199,7 +192,7 @@ function App() {
             </span>
           </div>
         )}
-        <div className="buttons-container">
+        {/* <div className="buttons-container">
           <Button
             onClick={() =>
               handleDownload(
@@ -224,7 +217,7 @@ function App() {
           >
             Download from Indonesia
           </Button>
-        </div>
+        </div> */}
         {percentage ? (
           <Progress
             strokeColor={{

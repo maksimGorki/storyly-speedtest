@@ -69,7 +69,7 @@ svg {
 }
 
 .upload-stats-container {
-  margin: 10px, 0;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -81,6 +81,7 @@ svg {
 }
 
 .ant-progress {
+  margin-top: 10px;
   width: 100%;
 }
 
